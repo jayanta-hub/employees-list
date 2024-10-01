@@ -5,13 +5,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, TextField, Button } from '@mui/material';
 import { ROUTES } from '../utility/constant';
 import { EmployeeFormProps } from '../utility/types';
+import { AppDispatch } from '../store/store';
 
 
 const EmployeeForm: React.FC = (): JSX.Element => {
     let { state } = useLocation();
     const navigate = useNavigate();
     const [formData, setFormData] = useState<EmployeeFormProps>(state?.employee || { name: '', email: '', role: '' });
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     /**
          * Handles the submission of the employee form, either creating a new employee or updating an existing one.

@@ -3,6 +3,7 @@ export const CONSTANT = Object.freeze({
     SUBMIT: "Submit",
     SUCCESS: "Success",
     ERROR: "Error",
+    ADD_EMPLOYEE : "Add Employee",
   });
   export const ROUTES = Object.freeze({
     // Customer Routes

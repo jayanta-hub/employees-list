@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconButton, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,8 +16,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdit }): JSX.Element => {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    console.log('EmployeeTable rendered');
+    const [page, setPage] = useState<number>(0);
+    const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - employee.length) : 0;
@@ -25,14 +26,14 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
     /**
  * Handles the event of changing the current page.
  *
- * @param {React.MouseEvent<HTMLButtonElement> | null} event - The mouse event that triggered the page change.
+ * @param {React.MouseEvent<HTMLButtonElement> | null} _event - The mouse event that triggered the page change.
  * @param {number} newPage - The new page number to navigate to.
  * @return {void} No return value.
  */
     const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
+        _event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number,
-    ) => {
+    ): void => {
         setPage(newPage);
     };
 
@@ -44,10 +45,11 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
      */
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
+    ): void => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -79,7 +81,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
                                     <IconButton aria-label="delete" size="small" color="error" onClick={() => onDelete(row.id)}>
                                         <DeleteIcon fontSize="small" />
                                     </IconButton>
-                                    <IconButton aria-label="delete" size="small" color="primary" onClick={() => onEdit(row)}>
+                                    <IconButton aria-label="edit" size="small" color="primary" onClick={() => onEdit(row)}>
                                         <EditIcon fontSize="small" />
                                     </IconButton>
                                 </TableCell>
