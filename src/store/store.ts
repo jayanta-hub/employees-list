@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import employeeReducer from '../store/slice/employeeSlice';
 
 export const store = configureStore({
+  devTools: true,
   reducer: {
     employees: employeeReducer,
   },

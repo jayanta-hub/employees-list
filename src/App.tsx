@@ -1,17 +1,3 @@
-// import './App.css';
-// import EmployeeList from './components/EmployeeList';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <EmployeeList />
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
 import { lazy, Suspense } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -28,7 +14,6 @@ const App = () => {
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>
-            {/** Public Routes */}
             <Route path="*" element={<Navigate to={ROUTES.EMPLOYEE_LIST} replace />} />
             <Route path={ROUTES.EMPLOYEE_LIST} element={<EmployeeList />} />
             <Route path={ROUTES.EMPLOYEE_FORM} element={<EmployeeForm />} />

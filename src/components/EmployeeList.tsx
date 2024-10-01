@@ -18,11 +18,23 @@ const EmployeeList: React.FC = (): JSX.Element => {
             .then(json => dispatch(setEmployees(json.employees)));
     }, [dispatch]);
 
+    /**
+     * Deletes an employee by ID.
+     *
+     * @param {number} id - The ID of the employee to delete.
+     * @return {void} No return value.
+     */
     const handleDelete = (id: number) => {
         fetch(`/api/employees/${id}`, { method: 'DELETE' })
             .then(() => dispatch(deleteEmployee(id)));
     };
 
+    /**
+ * Navigates to the employee form page with the selected employee's data.
+ *
+ * @param {object} employee - The employee object to be edited.
+ * @return {void} No return value.
+ */
     const handleEdit = (employee: object) => {
         navigate(ROUTES.EMPLOYEE_FORM, { state: { employee } });
     };

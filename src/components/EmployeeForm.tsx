@@ -12,7 +12,14 @@ const EmployeeForm: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState<EmployeeFormProps>(state?.employee || { name: '', email: '', role: '' });
     const dispatch = useDispatch();
-    const handleSubmit = (e: React.FormEvent) => {
+
+    /**
+         * Handles the submission of the employee form, either creating a new employee or updating an existing one.
+         *
+         * @param {React.FormEvent} e - The form event triggered by the submission.
+         * @return {void}
+         */
+    const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         if (state?.employee) {
             fetch(`/api/employees/${state?.employee.id}`, {
@@ -20,6 +27,11 @@ const EmployeeForm: React.FC = (): JSX.Element => {
                 body: JSON.stringify(formData),
             }).then(() => { dispatch(updateEmployee(formData)); navigate(ROUTES.EMPLOYEE_LIST); });
         } else {
+
+            if (!formData.name || !formData.email || !formData.role) {
+                alert('Please fill in all the fields');
+                return;
+            }
             fetch('/api/employees', {
                 method: 'POST',
                 body: JSON.stringify(formData),

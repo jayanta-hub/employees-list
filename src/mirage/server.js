@@ -31,10 +31,46 @@ export function makeServer() {
         email: "lokesh@example.com",
         role: "Project Manager",
       });
+      server.create("employee", {
+        id: 5,
+        name: "Jone Machine",
+        email: "Jone@example.com",
+        role: "Project Manager",
+      });
+      server.create("employee", {
+        id: 6,
+        name: "Ervin Howell",
+        email: "Shanna@example.com",
+        role: "Project Manager",
+      });
+      server.create("employee", {
+        id: 7,
+        name: "Clementine Bauch",
+        email: "Nathan@example.com",
+        role: "Project Manager",
+      });
+      server.create("employee", {
+        id: 8,
+        name: "Patricia Lebsack",
+        email: "lokesh@example.com",
+        role: "Project Manager",
+      });
+      server.create("employee", {
+        id: 9,
+        name: "Chelsey Dietrich",
+        email: "Lucio_Hettinger@example.com",
+        role: "Project Manager",
+      });
+      server.create("employee", {
+        id: 10,
+        name: "Kurtis Weissnat",
+        email: "Telly.Hoeger@example.com",
+        role: "Project Manager",
+      });
     },
 
     routes() {
-      this.baseUrl = "api";
+      this.namespace = "api";
 
       this.get("/employees", (schema) => {
         return schema.all("employee");
