@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+// import EmployeeList from './components/EmployeeList';
 
-function App() {
+// function App() {
+//   return (
+//     <div className="App">
+//       <EmployeeList />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+import { lazy, Suspense } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { Box } from "@mui/material";
+import { ROUTES } from "./utility/constant";
+
+const Loading = lazy(() => import("./components/Loading"));
+const EmployeeList = lazy(() => import("./components/EmployeeList"));
+const EmployeeForm = lazy(() => import("./components/EmployeeForm"));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box className="App">
+      <Router>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            {/** Public Routes */}
+            <Route path="*" element={<Navigate to={ROUTES.EMPLOYEE_LIST} replace />} />
+            <Route path={ROUTES.EMPLOYEE_LIST} element={<EmployeeList />} />
+            <Route path={ROUTES.EMPLOYEE_FORM} element={<EmployeeForm />} />
+          </Routes>
+        </Suspense>
+      </Router>
+    </Box>
   );
-}
+};
 
 export default App;
