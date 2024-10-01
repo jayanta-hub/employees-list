@@ -11,7 +11,7 @@ import { AppDispatch } from '../store/store';
 const EmployeeForm: React.FC = (): JSX.Element => {
     let { state } = useLocation();
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employee || { name: '', email: '', role: '' });
+    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employeeInfo || { name: '', email: '', role: '' });
     const dispatch = useDispatch<AppDispatch>();
 
     /**
