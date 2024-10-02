@@ -27,6 +27,7 @@ const CustomFormInput = ({ inputType, label, required, variant }: CustomFormInpu
                 return (
                     <TextField
                         label={label}
+                        type={getLowercaseLabel(label)}
                         variant={variant}
                         value={formData[getLowercaseLabel(label)] || ""}
                         onChange={(e) => setFormData({ ...formData, [getLowercaseLabel(label)]: e.target.value })}
