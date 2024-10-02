@@ -19,22 +19,31 @@ const EmployeeList: React.FC = (): JSX.Element => {
             .then(json => dispatch(setEmployees(json.employees)));
     }, [dispatch]);
 
+
     /**
-     * Deletes an employee by ID.
+     * Handles the deletion of an employee.
      *
-     * @param {number} empId - The ID of the employee to delete.
+     * This function sends a DELETE request to the server to delete the employee with the given id.
+     * The employee is then removed from the state using the `deleteEmployee` action.
+     *
+     * @param {number} empId - The id of the employee to be deleted.
      * @return {void} No return value.
      */
     const handleDelete = (empId: number): void => {
         fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}/${empId}`, { method: METHOD.DELETE })
             .then(() => dispatch(deleteEmployee(empId)));
     };
+
+    /*************  ✨ Codeium Command ⭐  *************/
     /**
- * Navigates to the employee form page with the selected employee's data.
- *
- * @param {object} employeeInfo - The employeeInfo object to be edited.
- * @return {void} No return value.
- */
+     * Handles the editing of an employee.
+     *
+     * This function navigates to the EmployeeForm page and passes the employee data as a state.
+     *
+     * @param {object} employeeInfo - The employee data to be edited.
+     * @return {void} No return value.
+     */
+    /******  246e7670-8dea-4c73-b2e2-a9688f8ed5dc  *******/
     const handleEdit = (employeeInfo: object): void => {
         navigate(ROUTES.EMPLOYEE_FORM, { state: { employeeInfo } });
     };

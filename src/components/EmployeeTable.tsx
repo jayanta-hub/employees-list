@@ -22,13 +22,14 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - employee.length) : 0;
 
+
     /**
- * Handles the event of changing the current page.
- *
- * @param {React.MouseEvent<HTMLButtonElement> | null} _event - The mouse event that triggered the page change.
- * @param {number} newPage - The new page number to navigate to.
- * @return {void} No return value.
- */
+     * Handles the event of changing the page in the table pagination.
+     *
+     * @param {React.MouseEvent<HTMLButtonElement> | null} _event - The mouse event triggered by the user. Ignored.
+     * @param {number} newPage - The new page number to navigate to.
+     * @return {void} No return value.
+     */
     const handleChangePage = (
         _event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number,
@@ -36,8 +37,9 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
         setPage(newPage);
     };
 
+
     /**
-     * Handles the event of changing the number of rows per page.
+     * Handles the event of changing the number of rows per page in the table pagination.
      *
      * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} event - The change event triggered by the user.
      * @return {void} No return value.
