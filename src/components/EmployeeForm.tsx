@@ -11,8 +11,9 @@ import { AppDispatch } from '../store/store';
 const EmployeeForm: React.FC = (): JSX.Element => {
     let { state } = useLocation();
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employee || { name: '', email: '', role: '' });
+    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employeeInfo || { name: '', email: '', role: '' });
     const dispatch = useDispatch<AppDispatch>();
+    console.log('formData', formData, state)
 
     /**
          * Handles the submission of the employee form, either creating a new employee or updating an existing one.

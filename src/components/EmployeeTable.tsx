@@ -16,12 +16,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdit }): JSX.Element => {
-    console.log('EmployeeTable rendered');
     const [page, setPage] = useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - employee.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - employee?.length) : 0;
 
     /**
  * Handles the event of changing the current page.
@@ -64,9 +63,9 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
                     </TableHead>
                     <TableBody>
                         {(rowsPerPage > 0
-                            ? employee.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            ? employee?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : employee
-                        ).map((row: { id: number, name: string, email: number, role: number }) => (
+                        )?.map((row: { id: number, name: string, email: number, role: number }) => (
                             <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row?.name}
@@ -98,7 +97,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ employee, onDelete, onEdi
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                 colSpan={3}
-                                count={employee.length}
+                                count={employee?.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 slotProps={{

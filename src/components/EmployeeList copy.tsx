@@ -7,30 +7,37 @@ import { Box, Button } from '@mui/material';
 import { CONSTANT, ROUTES } from '../utility/constant';
 import EmployeeTable from './EmployeeTable';
 import { EmployeeTableProps } from '../utility/types';
-
+import useFetch from '../hooks/useFetch';
+interface FetchResponse {
+    data: { id: number, name: string, email: string, role: string }[];
+}
 const EmployeeList: React.FC = (): JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
-    const employees = useSelector<RootState>((state: RootState) => state.employees.employees);
+    // const employees = useSelector<RootState>((state: RootState) => state.employees.employees);
     const navigate = useNavigate();
+    const { data: employees, loading, error } = useFetch('GET', '/api/employees');
 
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
-    useEffect(() => {
-        fetch('/api/employees')
-            .then(res => res.json())
-            .then(json => dispatch(setEmployees(json.employees)));
-    }, [dispatch]);
+    // useEffect(() => {
 
+    // fetch('/api/employees')
+    //     .then(res => res.json())
+    //     .then(json => dispatch(setEmployees(json.employees)));
+    // }, [dispatch]);
 
     /**
      * Deletes an employee by ID.
      *
-     * @param {number} empId - The ID of the employee to delete.
+     * @param {number} id - The ID of the employee to delete.
      * @return {void} No return value.
      */
-    const handleDelete = (empId: number): void => {
-        fetch(`/api/employees/${empId}`, { method: 'DELETE' })
-            .then(() => dispatch(deleteEmployee(empId)));
+    const handleDelete = (id: number): void => {
+        fetch(`/api/employees/${id}`, { method: 'DELETE' })
+            .then(() => dispatch(deleteEmployee(id)));
     };
+
     /**
  * Navigates to the employee form page with the selected employee's data.
  *
