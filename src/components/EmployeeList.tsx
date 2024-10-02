@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { deleteEmployee, setEmployees } from '../store/slice/employeeSlice';
 import { Box, Button } from '@mui/material';
-import { CONSTANT, ROUTES } from '../utility/constant';
+import { API_ROUTES, BASE_URL, CONSTANT, METHOD, ROUTES } from '../utility/constant';
 import EmployeeTable from './EmployeeTable';
 import { EmployeeTableProps } from '../utility/types';
 
@@ -14,7 +14,7 @@ const EmployeeList: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('/api/employees')
+        fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}`, { method: METHOD.GET })
             .then(res => res.json())
             .then(json => dispatch(setEmployees(json.employees)));
     }, [dispatch]);
@@ -26,7 +26,7 @@ const EmployeeList: React.FC = (): JSX.Element => {
      * @return {void} No return value.
      */
     const handleDelete = (empId: number): void => {
-        fetch(`/api/employees/${empId}`, { method: 'DELETE' })
+        fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}/${empId}`, { method: METHOD.DELETE })
             .then(() => dispatch(deleteEmployee(empId)));
     };
     /**

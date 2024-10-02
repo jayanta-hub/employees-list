@@ -2,29 +2,32 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEmployee, updateEmployee } from '../store/slice/employeeSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, TextField, Button } from '@mui/material';
-import { ROUTES } from '../utility/constant';
-import { EmployeeFormProps } from '../utility/types';
+import { Box, Button } from '@mui/material';
+import { API_ROUTES, BASE_URL, CONSTANT, METHOD, ROUTES } from '../utility/constant';
+import { ContextValue, EmployeeFormProps } from '../utility/types';
 import { AppDispatch } from '../store/store';
+import FormContext from '../utility/context/FormContext';
+import CustomFormInput from '../commonComponent/CustomFormInput';
+import { employeeFormData, formArray } from '../utility/jsonData';
 
 
 const EmployeeForm: React.FC = (): JSX.Element => {
     let { state } = useLocation();
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employeeInfo || { name: '', email: '', role: '' });
+    const [formData, setFormData] = useState<EmployeeFormProps>(state?.employeeInfo || employeeFormData);
     const dispatch = useDispatch<AppDispatch>();
 
     /**
-         * Handles the submission of the employee form, either creating a new employee or updating an existing one.
-         *
-         * @param {React.FormEvent} e - The form event triggered by the submission.
-         * @return {void}
-         */
+     * Handles the submission of the employee form, either creating a new employee or updating an existing one.
+     *
+     * @param {React.FormEvent} e - The form event triggered by the submission.
+     * @return {void}
+     */
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         if (state?.employee) {
-            fetch(`/api/employees/${state?.employee.id}`, {
-                method: 'PUT',
+            fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}/${state?.employee.id}`, {
+                method: METHOD.PUT,
                 body: JSON.stringify(formData),
             }).then(() => { dispatch(updateEmployee(formData)); navigate(ROUTES.EMPLOYEE_LIST); });
         } else {
@@ -33,53 +36,38 @@ const EmployeeForm: React.FC = (): JSX.Element => {
                 alert('Please fill in all the fields');
                 return;
             }
-            fetch('/api/employees', {
-                method: 'POST',
+            fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}`, {
+                method: METHOD.POST,
                 body: JSON.stringify(formData),
             }).then(() => { dispatch(addEmployee(formData)); navigate(ROUTES.EMPLOYEE_LIST); });
         }
     };
-
+    const contextValue: ContextValue = {
+        formData,
+        setFormData
+    }
     return (
         <>
-            <Box sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-            }}>
-                <Box
-                    component="form"
-                    onSubmit={handleSubmit}
-                    sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '300px', margin: '0 auto' }}
-                >
-                    <TextField
-                        label="Name"
-                        variant="outlined"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
-                    />
-                    <TextField
-                        label="Email"
-                        type="email"
-                        variant="outlined"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                    />
-                    <TextField
-                        label="Role"
-                        variant="outlined"
-                        value={formData.role}
-                        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        required
-                    />
-                    <Button type="submit" variant="contained" color="primary">
-                        {state?.employee ? 'Update' : 'Add'}
-                    </Button>
+            <FormContext.Provider value={contextValue}>
+                <Box sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}>
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '300px', margin: '0 auto' }}
+                    >
+                        {formArray?.map((item) => (
+                            <CustomFormInput {...item} />))}
+                        <Button type="submit" variant="contained" color="primary">
+                            {state?.employee ? CONSTANT.UPDATE : CONSTANT.ADD}
+                        </Button>
+                    </Box>
                 </Box>
-            </Box>
+            </FormContext.Provider>
         </>
     );
 };

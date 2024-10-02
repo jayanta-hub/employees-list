@@ -9,3 +9,8 @@ export interface EmployeeFormProps {
     email: string,
     role: string,
 }
+
+export type ContextValue = {
+    formData: EmployeeFormProps;
+    setFormData: React.Dispatch<React.SetStateAction<EmployeeFormProps>>;
+} | null;
