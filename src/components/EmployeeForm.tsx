@@ -63,7 +63,7 @@ const EmployeeForm: React.FC = (): JSX.Element => {
                         {formArray?.map((item) => (
                             <CustomFormInput {...item} />))}
                         <Button type="submit" variant="contained" color="primary">
-                            {state?.employee ? CONSTANT.UPDATE : CONSTANT.ADD}
+                            {state?.employeeInfo ? CONSTANT.UPDATE : CONSTANT.ADD}
                         </Button>
                     </Box>
                 </Box>
