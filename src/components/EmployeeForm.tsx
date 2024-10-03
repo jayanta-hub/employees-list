@@ -25,8 +25,8 @@ const EmployeeForm: React.FC = (): JSX.Element => {
      */
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
-        if (state?.employee) {
-            fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}/${state?.employee.id}`, {
+        if (state?.employeeInfo) {
+            fetch(`${BASE_URL}${API_ROUTES.EMPLOYEES}/${state?.employeeInfo.id}`, {
                 method: METHOD.PUT,
                 body: JSON.stringify(formData),
             }).then(() => { dispatch(updateEmployee(formData)); navigate(ROUTES.EMPLOYEE_LIST); });
