@@ -12,7 +12,7 @@ import { employeeFormData, formArray } from '../utility/jsonData';
 
 
 const EmployeeForm: React.FC = (): JSX.Element => {
-    let { state } = useLocation();
+    let { state } = useLocation() || {};  // Ensure state is defined
     const navigate = useNavigate();
     const [formData, setFormData] = useState<EmployeeFormProps>(state?.employeeInfo || employeeFormData);
     const dispatch = useDispatch<AppDispatch>();

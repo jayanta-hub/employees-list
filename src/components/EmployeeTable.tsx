@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { IconButton, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
+import { IconButton, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { EmployeeTableProps } from '../utility/types';

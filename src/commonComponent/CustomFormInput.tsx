@@ -26,6 +26,7 @@ const CustomFormInput = ({ inputType, label, required, variant }: CustomFormInpu
             case "TextField":
                 return (
                     <TextField
+                        name={label}
                         label={label}
                         type={getLowercaseLabel(label)}
                         variant={variant}
